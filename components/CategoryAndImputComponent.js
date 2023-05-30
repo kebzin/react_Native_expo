@@ -6,11 +6,10 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  Platform,
-  StatusBar,
   Animated,
 } from "react-native";
 import { COLORS, icons, SIZES, images } from "../constants/index";
+import { InputField } from "../components/index";
 const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
   const categoryTranslateY = scrollY.interpolate({
     inputRange: [0, 100], // Adjust the values based on when you want the category animation to start
@@ -24,7 +23,17 @@ const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
           paddingHorizontal: SIZES.padding - 10,
           transform: [{ translateY: categoryTranslateY }],
         }}
-      ></Animated.View>
+      >
+        <InputField
+          Placeholder={"Search"}
+          prependComponent={
+            <Image source={icons.search} style={style.ImputField} />
+          }
+          appendComponent={
+            <Image source={icons.} style={style.ImputField} />
+          }
+        />
+      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -49,10 +58,11 @@ const style = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  logo: {
-    resizeMode: "contain",
-    width: "100%",
-    height: "100%",
+  ImputField: {
+    width: 20,
+    height: 30,
+    tintColor: COLORS.grey,
+    marginHorizontal: SIZES.base,
   },
 });
 
