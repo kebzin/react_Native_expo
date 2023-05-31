@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { COLORS, icons, SIZES, images } from "../constants/index";
 import { InputField } from "../components/index";
+import { useNavigation } from "@react-navigation/native";
+
 const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
+  // hooks
+  const Navigation = useNavigation();
   const categoryTranslateY = scrollY.interpolate({
     inputRange: [0, 100], // Adjust the values based on when you want the category animation to start
     outputRange: [0, -100], // Adjust the values based on the desired category translateY
@@ -25,12 +29,15 @@ const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
         }}
       >
         <InputField
+          onPress={() => {
+            Navigation.navigate("Search");
+          }}
           Placeholder={"Search"}
           prependComponent={
             <Image source={icons.search} style={style.ImputField} />
           }
           appendComponent={
-            <Image source={icons.} style={style.ImputField} />
+            <Image source={icons.camera} style={style.ImputField} />
           }
         />
       </Animated.View>
@@ -42,6 +49,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: COLORS.primary,
     marginTop: 40,
+    paddingVertical: SIZES.base,
   },
   thirdContainer: {
     flexDirection: "row",
@@ -59,10 +67,9 @@ const style = StyleSheet.create({
     height: 25,
   },
   ImputField: {
-    width: 20,
-    height: 30,
+    width: 25,
+    height: 25,
     tintColor: COLORS.grey,
-    marginHorizontal: SIZES.base,
   },
 });
 
