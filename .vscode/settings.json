@@ -1,0 +1,8 @@
+{
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": true,
+  "editor.wordWrap": "on",
+  "editor.autoClosingBrackets": "always",
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.columnSelection": true
+}

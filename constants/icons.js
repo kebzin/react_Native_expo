@@ -38,7 +38,15 @@ const video = require("../assets/icons/video.png");
 const pinMap = require("../assets/icons/pinMap.png");
 const exchange = require("../assets/icons/add.png");
 const addPost = require("../assets/icons/addPost.png");
+const arrowRight = require("../assets/icons/arrowRight.png");
+const condition = require("../assets/icons/condition.png");
+const setting = require("../assets/icons/setting.png");
+const edit = require("../assets/icons/edit.png");
+const chat = require("../assets/icons/chat.png");
 export default {
+  condition,
+  setting,
+  arrowRight,
   arrow_down_fill,
   arrow_left,
   arrow_right_up,
@@ -79,4 +87,6 @@ export default {
   pinMap,
   exchange,
   addPost,
+  edit,
+  chat,
 };

@@ -9,6 +9,7 @@ import TextButton from "./TextButton";
 import CustomBackdrop from "./CustomBackdrop";
 import HeaderComponent from "./HeaderComponent";
 import CategoryAndInputCombine from "./CategoryAndImputComponent";
+import Select from "./Select";
 
 export {
   CountryDropDown,
@@ -22,4 +23,5 @@ export {
   CustomBackdrop,
   HeaderComponent,
   CategoryAndInputCombine,
+  Select,
 };

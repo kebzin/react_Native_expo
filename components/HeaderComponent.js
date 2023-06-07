@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
   TouchableOpacity,
   Image,
@@ -10,37 +10,53 @@ import {
   StatusBar,
   Animated,
 } from "react-native";
-import { COLORS, icons, SIZES, images } from "../constants/index";
-const HeaderComponent = ({ scrollY, Onpress }) => {
+import { COLORS, icons, SIZES, images, title, FONTS } from "../constants/index";
+import { color } from "react-native-reanimated";
+
+const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
   const headerTranslateY = scrollY.interpolate({
-    inputRange: [0, 100], // Adjust the values based on when you want the header animation to start
-    outputRange: [0, -100], // Adjust the values based on the desired header translateY
+    inputRange: [0, 100],
+    outputRange: [0, -100],
     extrapolate: "clamp",
   });
-  return (
-    <SafeAreaView style={style.container}>
-      <Animated.View
-        style={{
-          position: "absolute",
-          top: StatusBar.currentHeight,
-          left: 0,
-          right: 0,
-          flex: 1,
 
-          paddingHorizontal: SIZES.padding - 10,
-          transform: [{ translateY: headerTranslateY }],
-          backgroundColor: COLORS.primary,
-        }}
+  return (
+    <SafeAreaView style={styles.container}>
+      <Animated.View
+        style={[
+          styles.header,
+          { transform: [{ translateY: headerTranslateY }] },
+        ]}
       >
-        <View style={style.thirdContainer}>
-          {/* logo */}
-          <View style={style.LogoContainer}>
-            <Image source={icons.logo} style={style.logo} />
+        <View style={styles.headerContent}>
+          <View style={styles.logoContainer}>
+            <Image source={icons.logo} style={styles.logo} />
           </View>
-          {/* notification icon  */}
-          <View style={style.BellContainer}>
-            <TouchableOpacity onPress={Onpress}>
-              <Image source={icons.bell} style={style.logo} />
+          <Text style={styles.title}>{Title}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+            <TouchableOpacity
+              onPress={messagePress}
+              style={styles.bellContainer}
+            >
+              <Text
+                style={{
+                  position: "absolute",
+                  top: -15,
+                  color: COLORS.light,
+                  backgroundColor: COLORS.error,
+                  borderRadius: 50,
+                  width: 20,
+                  height: 20,
+                  textAlign: "center",
+                  ...FONTS.body5,
+                }}
+              >
+                0
+              </Text>
+              <Image source={icons.chat} style={styles.bellIcon} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onPress} style={styles.bellContainer}>
+              <Image source={icons.bell} style={styles.bellIcon} />
             </TouchableOpacity>
           </View>
         </View>
@@ -49,32 +65,51 @@ const HeaderComponent = ({ scrollY, Onpress }) => {
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    zIndex: 100,
     backgroundColor: COLORS.primary,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     paddingHorizontal: SIZES.padding - 10,
   },
-  thirdContainer: {
+  header: {
+    position: "absolute",
+    top: StatusBar.currentHeight,
+    left: 0,
+    right: 0,
+    paddingHorizontal: SIZES.padding - 10,
+    backgroundColor: COLORS.primary,
+  },
+  headerContent: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingVertical: SIZES.base,
   },
-  LogoContainer: {
+  logoContainer: {
     width: 40,
     height: 40,
     overflow: "hidden",
     borderRadius: 10,
   },
-  BellContainer: {
-    width: 25,
-    height: 25,
-  },
   logo: {
     resizeMode: "contain",
     width: "100%",
     height: "100%",
+  },
+  title: {
+    ...FONTS.h3,
+    color: COLORS.light,
+  },
+  bellContainer: {
+    width: 25,
+    height: 25,
+    position: "relative",
+  },
+  bellIcon: {
+    resizeMode: "contain",
+    width: "100%",
+    height: "100%",
+    tintColor: COLORS.light,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { FONTS, COLORS, SIZES, icons } from "../../constants/index";
 import {
   Text,
@@ -10,21 +10,30 @@ import {
   Image,
   Keyboard,
 } from "react-native";
-import { TextButton, InputField } from "../../components/index";
+import {
+  TextButton,
+  InputField,
+  BottomSheetDialog,
+} from "../../components/index";
+
 const ChangePassword = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [Error, setError] = useState("");
   const [confermPassword, setConfermPassword] = useState("");
+  const bottomSheetModalRef = useRef(null);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+    Keyboard.dismiss();
+  }, []);
 
   //  handle form submit
   const HandleFormSubmit = () => {
     if (password !== confermPassword) {
       return setError("Password do not match. Please try again");
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "AuthMain" }],
-    });
+
+    handlePresentModalPress();
   };
 
   //   handle keyboard dismissed when input release
@@ -102,6 +111,21 @@ const ChangePassword = ({ navigation }) => {
           }}
           labelStyle={{
             ...FONTS.h5,
+          }}
+        />
+        <BottomSheetDialog
+          bottomSheetModalRef={bottomSheetModalRef}
+          Title={"Password Change Sccessfull"}
+          ButtonText={"Continue"}
+          Icone={icons.checkmark}
+          Status={"Success"}
+          Message={"Your password has succesfilly being change "}
+          HandleClick={() => {
+            bottomSheetModalRef.current?.close(),
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "AuthMain" }],
+              });
           }}
         />
       </SafeAreaView>

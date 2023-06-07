@@ -48,7 +48,7 @@ const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
 const style = StyleSheet.create({
   container: {
     backgroundColor: COLORS.primary,
-    marginTop: 40,
+    marginTop: 50,
     paddingVertical: SIZES.base,
   },
   thirdContainer: {

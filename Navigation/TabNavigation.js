@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Profile, NearBy, Exchange, Post, Home } from "../screens/index";
 import { icons, COLORS, SIZES } from "../constants/index";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Alert, Image, TouchableOpacity, View } from "react-native";
+import { Alert, Image, TouchableOpacity, View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   const Navigation = useNavigation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const handleProfileClick = () => {
     if (isLoggedIn) {
       // User is logged in, navigate to the profile screen
@@ -17,9 +17,14 @@ const TabNavigation = () => {
     } else {
       // User is not logged in, show a login prompt or navigate to the login screen
       // For example, you can display an alert asking the user to log in
-      return (
-        
-      )
+      return Alert.alert("Alert Title", "My Alert Msg", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ]);
     }
   };
   const TabIcon = ({ icon, focused, Onpress }) => {
@@ -105,6 +110,7 @@ const TabNavigation = () => {
               focused: focused,
               // Onpress: handleProfileClick,
             }),
+          headerShown: false,
         }}
         listeners={{
           tabPress: (e) => {

@@ -57,7 +57,7 @@ const ForgetPassword = ({ navigation }) => {
 
         {/* forget password button */}
         <TextButton
-          onPress={() => navigation.navigate("OTO_Verification")}
+          onPress={() => navigation.navigate("VerificationCod")}
           label={"Send Verification Code"}
           contentContainerStyle={{
             height: 55,

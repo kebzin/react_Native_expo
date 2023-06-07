@@ -1,5 +1,5 @@
-import React, { useCallback } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useCallback, useEffect } from "react";
+import { View, Text, StyleSheet, Image, Keyboard } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { SIZES, COLORS, FONTS } from "../constants/index";
 import { TextButton, CustomBackdrop } from "../components/index";

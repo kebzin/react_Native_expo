@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FONTS, COLORS, SIZES, icons } from "../../constants/index";
 import {
   Text,
@@ -32,6 +32,7 @@ const OTO_Verification = ({ navigation }) => {
   // Handle Buttomsheet
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
+    Keyboard.dismiss();
   }, []);
 
   //   handle keyboard dismissed when input release
@@ -96,7 +97,7 @@ const OTO_Verification = ({ navigation }) => {
           Message={"Your OTP code is succesfilly conferm "}
           HandleClick={() => {
             bottomSheetModalRef.current?.close(),
-              navigation.navigate("Password");
+              navigation.navigate("ChangePassword");
           }}
         />
       </SafeAreaView>

@@ -7,7 +7,7 @@ import {
 } from "../../components/index";
 import { SIZES, icons, COLORS } from "../../constants/index";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [data, setData] = useState([]); // Initial data array
   const [page, setPage] = useState(1); // Current page of data
 
@@ -23,10 +23,21 @@ const Home = () => {
     return <View>{/* Your item component */}</View>;
   };
 
+  //  navigate to message
+  const HandleMessageNavigation = () => {
+    // check if the user is log in or not
+    navigation.navigate("message");
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.light }}>
       {/* header component  */}
-      <HeaderComponent scrollY={scrollY} />
+
+      <HeaderComponent
+        scrollY={scrollY}
+        Title={"Home"}
+        messagePress={HandleMessageNavigation}
+      />
       {/* input and category component */}
       <CategoryAndInputCombine scrollY={scrollY} />
       {/* category */}

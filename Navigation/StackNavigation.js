@@ -7,6 +7,10 @@ import {
   AuthMain,
   ForgetPassword,
   Search,
+  ProfileInfo,
+  EditProfile,
+  Message,
+  ViewMessages,
 } from "../screens/index";
 import React from "react";
 import TabNavigation from "./TabNavigation";
@@ -28,6 +32,28 @@ const StackNavigation = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Walkthrough" component={Walkthrough} />
       <Stack.Screen name="AuthMain" component={AuthMain} />
+      <Stack.Screen
+        name="ProfileInfo"
+        component={ProfileInfo}
+        options={{
+          headerShown: true,
+          title: "Profile Info",
+          headerStyle: {
+            height: 70,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          headerShown: true,
+          title: "Edit Profile",
+          headerStyle: {
+            height: 70,
+          },
+        }}
+      />
       <Stack.Screen
         name="Search"
         component={Search}
@@ -72,6 +98,25 @@ const StackNavigation = () => {
           },
         }}
         component={OTO_Verification}
+      />
+      {/* message */}
+      <Stack.Screen
+        name="message"
+        options={{
+          headerShown: true,
+          title: "Message",
+          headerStyle: {
+            height: 70,
+          },
+        }}
+        component={Message}
+      />
+      <Stack.Screen
+        name="ViewMessages"
+        options={{
+          headerShown: true,
+        }}
+        component={ViewMessages}
       />
     </Stack.Navigator>
   );

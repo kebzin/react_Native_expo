@@ -10,8 +10,13 @@ import NearBy from "./NearBy/NearBy";
 import Exchange from "./Exchange/Exchange";
 import Post from "./Post/Post";
 import Search from "./search/Search";
+import ProfileInfo from "./Profile/ProfileInfo";
+import EditProfile from "./Profile/EditProfile";
+import Message from "./Message/Message";
+import ViewMessages from "./Message/ViewMessages";
 
 export {
+  ProfileInfo,
   Welcome,
   Walkthrough,
   AuthMain,
@@ -24,4 +29,7 @@ export {
   Exchange,
   Profile,
   Search,
+  EditProfile,
+  Message,
+  ViewMessages,
 };

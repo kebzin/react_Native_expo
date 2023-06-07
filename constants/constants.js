@@ -104,6 +104,59 @@ const scan_product_option = {
   camera: "CAMERA",
 };
 
+const Message = [
+  {
+    id: 1,
+    title: "Kebba Waiga",
+    description: "Please send your address",
+    date: "Dec 24",
+    number: 8,
+  },
+  {
+    id: 2,
+    title: "Omar Ceesay",
+    description:
+      "I would really appreciated if you could give me some discount",
+    date: "3 munit ago",
+    number: 12,
+  },
+  {
+    id: 3,
+    title: "Abdoulie Waiga",
+    description: "I am still waitin for your replay",
+    date: "8:10am",
+    number: 4,
+  },
+  {
+    id: 4,
+    title: "Kandeh Waiga",
+    description: "Is this place still avelable",
+    date: "Yesterday",
+    number: 1,
+  },
+  {
+    id: 5,
+    title: "Mama Damba",
+    description: "Can you send me more picture about this particuler item",
+    date: "Dec 24",
+    number: 3,
+  },
+  {
+    id: 6,
+    title: "Adama Waiga",
+    description: "Please send your address",
+    date: "Yesterday",
+    number: 12,
+  },
+  {
+    id: 7,
+    title: "Muhammed Waiga",
+    description: "Please send your address",
+    date: "Monday",
+    number: 1,
+  },
+];
+
 export default {
   walkthrough_01_01_images,
   walkthrough_01_02_images,
@@ -112,4 +165,5 @@ export default {
   dashboard_screens,
   Suggestion,
   scan_product_option,
+  Message,
 };
