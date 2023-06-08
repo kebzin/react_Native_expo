@@ -126,7 +126,7 @@ const ProfileDetaile = ({
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.light20,
+    backgroundColor: COLORS.lightGrey,
     padding: SIZES.padding - 10,
     position: "relative",
   },

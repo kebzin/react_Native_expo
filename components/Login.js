@@ -16,6 +16,9 @@ const Login = ({ navigation }) => {
 
         {/* 1 Email Field */}
         <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginTop: 50,
             marginBottom: 10,
@@ -38,6 +41,9 @@ const Login = ({ navigation }) => {
 
         {/* 2 Password input */}
         <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginTop: 1,
             marginBottom: 10,

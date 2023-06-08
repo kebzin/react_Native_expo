@@ -107,7 +107,7 @@ const style = StyleSheet.create({
     paddingHorizontal: SIZES.padding - 10,
     flex: 1,
     paddingVertical: SIZES.padding,
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.lightGrey,
   },
 
   ImputField: {

@@ -29,7 +29,8 @@ const InputField = ({
           paddingHorizontal: SIZES.radius,
           borderRadius: SIZES.radius,
           alignItems: "center",
-          backgroundColor: COLORS.lightGrey,
+          backgroundColor: COLORS.light,
+          ...inputContainerStyle,
         }}
       >
         {prependComponent}

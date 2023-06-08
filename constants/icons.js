@@ -43,6 +43,8 @@ const condition = require("../assets/icons/condition.png");
 const setting = require("../assets/icons/setting.png");
 const edit = require("../assets/icons/edit.png");
 const chat = require("../assets/icons/chat.png");
+const send = require("../assets/icons/send.png");
+
 export default {
   condition,
   setting,
@@ -89,4 +91,5 @@ export default {
   addPost,
   edit,
   chat,
+  send,
 };

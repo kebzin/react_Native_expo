@@ -189,7 +189,7 @@ const RenderProfileContent = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.lightGrey,
     paddingHorizontal: SIZES.padding - 10,
   },
   headerTopContainer: {

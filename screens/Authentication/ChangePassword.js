@@ -138,7 +138,7 @@ const style = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     paddingHorizontal: SIZES.padding,
     flex: 1,
-    backgroundColor: COLORS.light,
+    backgroundColor: COLORS.lightGrey,
   },
 });
 export default ChangePassword;

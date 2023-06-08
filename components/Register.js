@@ -23,6 +23,9 @@ const Register = () => {
 
         {/* UserName */}
         <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginTop: 50,
             marginBottom: 10,
@@ -45,6 +48,9 @@ const Register = () => {
 
         {/* email Address */}
         <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginBottom: 10,
           }}
@@ -65,6 +71,9 @@ const Register = () => {
         />
         {/* phone Numbr */}
         <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginBottom: 10,
           }}
@@ -86,6 +95,9 @@ const Register = () => {
 
         {/* password field */}
         <InputField
+         inputContainerStyle={{
+          backgroundColor: COLORS.lightGrey80,
+        }}
           containerStyle={{
             marginTop: 1,
             marginBottom: 10,

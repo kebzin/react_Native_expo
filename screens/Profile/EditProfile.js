@@ -57,6 +57,9 @@ const ProfileInfo = ({ navigation }) => {
         >
           {/* full name */}
           <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
             Placeholder={"Enter Your Full Name"}
             value={name}
             onChange={(text) => setName(text)}
@@ -71,6 +74,9 @@ const ProfileInfo = ({ navigation }) => {
             }}
           />
           <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
             Placeholder={"Enter Phone Number"}
             value={Phone}
             onChange={(text) => setPhone(text)}
@@ -91,6 +97,9 @@ const ProfileInfo = ({ navigation }) => {
           />
 
           <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
             Placeholder={"Enter Website Domain name"}
             containerStyle={{
               marginVertical: SIZES.base,
@@ -104,12 +113,18 @@ const ProfileInfo = ({ navigation }) => {
             dropDownState={accounttype}
           />
           <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
             Placeholder={"Enter Your Company Name"}
             containerStyle={{
               marginVertical: SIZES.base,
             }}
           />
           <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
             Placeholder={"Enter Company Locations"}
             containerStyle={{
               marginVertical: SIZES.base,

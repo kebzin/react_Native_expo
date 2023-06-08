@@ -21,9 +21,7 @@ const Message = ({ navigation }) => {
   // Handle navigation function
   const HandleNavigation = (item) => {
     return navigation.navigate("ViewMessages", {
-      name: {
-        item,
-      },
+      item,
     });
   };
 
