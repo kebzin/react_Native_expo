@@ -11,6 +11,8 @@ import {
   EditProfile,
   Message,
   ViewMessages,
+  Settings,
+  PostExchange,
 } from "../screens/index";
 import React from "react";
 import TabNavigation from "./TabNavigation";
@@ -21,6 +23,8 @@ const StackNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        animationEnabled: true,
+        animationTypeForReplaced: "pop",
       }}
       initialRouteName="Welcome"
     >
@@ -32,6 +36,9 @@ const StackNavigation = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Walkthrough" component={Walkthrough} />
       <Stack.Screen name="AuthMain" component={AuthMain} />
+      <Stack.Screen name="Setting" component={Settings} />
+      <Stack.Screen name="PostExchange" component={PostExchange} />
+
       <Stack.Screen
         name="ProfileInfo"
         component={ProfileInfo}

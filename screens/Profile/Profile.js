@@ -110,6 +110,7 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={styles.shadowContainer}>
           <RenderProfileContent
+            onPress={() => navigation.navigate("Setting")}
             Title={"Setting"}
             IconLeft={icons.setting}
             description="See your profile info"

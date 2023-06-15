@@ -4,5 +4,5 @@
   "editor.wordWrap": "on",
   "editor.autoClosingBrackets": "always",
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "editor.columnSelection": true
+  "editor.columnSelection": false
 }

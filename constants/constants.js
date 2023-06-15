@@ -111,6 +111,7 @@ const Message = [
     description: "Please send your address",
     date: "Dec 24",
     number: 8,
+    owner: true,
   },
   {
     id: 2,
@@ -119,6 +120,7 @@ const Message = [
       "I would really appreciated if you could give me some discount",
     date: "3 munit ago",
     number: 12,
+    owner: false,
   },
   {
     id: 3,
@@ -126,6 +128,7 @@ const Message = [
     description: "I am still waitin for your replay",
     date: "8:10am",
     number: 4,
+    owner: true,
   },
   {
     id: 4,
@@ -133,6 +136,7 @@ const Message = [
     description: "Is this place still avelable",
     date: "Yesterday",
     number: 1,
+    owner: false,
   },
   {
     id: 5,
@@ -140,6 +144,7 @@ const Message = [
     description: "Can you send me more picture about this particuler item",
     date: "Dec 24",
     number: 3,
+    owner: false,
   },
   {
     id: 6,
@@ -147,6 +152,7 @@ const Message = [
     description: "Please send your address",
     date: "Yesterday",
     number: 12,
+    owner: true,
   },
   {
     id: 7,
@@ -154,6 +160,7 @@ const Message = [
     description: "Please send your address",
     date: "Monday",
     number: 1,
+    owner: true,
   },
 ];
 

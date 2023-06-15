@@ -14,6 +14,8 @@ import ProfileInfo from "./Profile/ProfileInfo";
 import EditProfile from "./Profile/EditProfile";
 import Message from "./Message/Message";
 import ViewMessages from "./Message/ViewMessages";
+import Settings from "./Profile/Settings";
+import PostExchange from "./Post/Exchange";
 
 export {
   ProfileInfo,
@@ -32,4 +34,6 @@ export {
   EditProfile,
   Message,
   ViewMessages,
+  Settings,
+  PostExchange,
 };

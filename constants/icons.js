@@ -44,6 +44,7 @@ const setting = require("../assets/icons/setting.png");
 const edit = require("../assets/icons/edit.png");
 const chat = require("../assets/icons/chat.png");
 const send = require("../assets/icons/send.png");
+const done = require("../assets/icons/done.png");
 
 export default {
   condition,
@@ -92,4 +93,5 @@ export default {
   edit,
   chat,
   send,
+  done,
 };

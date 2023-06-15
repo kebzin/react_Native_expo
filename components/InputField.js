@@ -19,6 +19,7 @@ const InputField = ({
   onPress,
   inputMode,
   enterKeyHint,
+  multiline,
 }) => {
   return (
     <View style={{ ...containerStyle }}>
@@ -35,14 +36,16 @@ const InputField = ({
       >
         {prependComponent}
         <TextInput
+          multiline={multiline}
           style={{
             flex: 1,
+
             paddingVertical: 0,
             ...FONTS.body4,
             ...inputStyle,
           }}
           value={value}
-          onChange={(text) => onChange(text)}
+          onChangeText={(text) => onChange(text)}
           editable={editable}
           secureTextEntry={secureTextEntery}
           keyboardType={keyboardType}

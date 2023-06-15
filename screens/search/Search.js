@@ -70,10 +70,11 @@ const Search = () => {
           <View
             style={{
               flexDirection: "row",
+              justifyContent: "center",
               flexWrap: "wrap",
-              gap: SIZES.padding,
               marginTop: SIZES.padding,
               alignItems: "center",
+              gap: 10,
             }}
           >
             {constants.Suggestion.map((item, index) => (
@@ -86,9 +87,21 @@ const Search = () => {
                     //   backgroundColor: COLORS.support5_08,
                     padding: SIZES.base - 5,
                     borderRadius: SIZES.radius - 5,
+                    borderColor: COLORS.grey20,
+                    padding: 5,
+                    borderRadius: 5,
+                    borderWidth: 1,
                   }}
                 >
-                  <Text style={{ ...FONTS.body5 }}>{item.label}</Text>
+                  <Text
+                    style={{
+                      ...FONTS.body5,
+
+                      color: COLORS.grey,
+                    }}
+                  >
+                    {item.label}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))}

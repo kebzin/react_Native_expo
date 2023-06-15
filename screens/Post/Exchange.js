@@ -24,23 +24,14 @@ import {
 import * as ImagePicker from "expo-image-picker";
 
 /**
- * Component responsible for displaying a screen for adding a property post.
+ * Component responsible for displaying a screen for adding a property Exchanjes.
  * @param {Object} navigation - The navigation object provided by React Navigation.
- * @returns {JSX.Element} Post component JSX.
+ * @returns {JSX.Element} Exchange component JSX.
  */
-const Post = ({ navigation }) => {
+const PostExchange = ({ navigation }) => {
   // states
   const [previewImage, setPreviewImage] = useState(null);
-  const [cat, setCat] = useState(false);
   const [openModal1, setShowModal1] = useState(false);
-  const [openModal2, setShowModal2] = useState(false);
-  const [openCarModule, setOpenCarModule] = useState(false);
-  const [NumberOfPassengers, setNumberOfPassengers] = useState("4 Passengers");
-  const [openCarModuleTye, setOpenCarModuleType] = useState(false);
-  const [Private, SetPrivate] = useState("Private Car");
-
-  const [Bathrooms, setBathrooms] = useState("1 Bathrooms");
-  const [Bedrooms, setBedrooms] = useState("1 Bedrooms");
   const [Category, setCategory] = useState("Choose Category");
   const [CategoryOpen, setCategoryOpen] = useState(false);
   const [PriceMonthly, setPriceMonthly] = useState(null);
@@ -49,9 +40,6 @@ const Post = ({ navigation }) => {
   const [PropertyLocation, setPropertyLocation] = useState(null);
   const [Description, setDescription] = useState(null);
   const [images, setImages] = useState([]);
-  const [exchange, setExchnge] = useState(false);
-  const [postProperty, setPostProperty] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
 
   // hooks
   const bottomSheetModalRef = useRef(null);
@@ -64,7 +52,7 @@ const Post = ({ navigation }) => {
     // Set navigation options for the screen
     navigation.setOptions({
       headerShown: true,
-      title: "Add Property",
+      title: "Add Exchange Item",
       headerStyle: {
         height: 80,
       },
@@ -74,92 +62,17 @@ const Post = ({ navigation }) => {
     });
 
     // Set up a focus listener to show the modal when the screen gains focus
-    const focusListener = navigation.addListener("focus", () => {
-      setModalVisible(true);
-    });
+    // const focusListener = navigation.addListener("focus", () => {
+    //   setModalVisible(true);
+    // });
 
     // Clean up the listener when the component unmounts or when the dependencies change
     return () => {
-      focusListener(); // Remove the focus listener to avoid memory leaks
+      //   focusListener(); // Remove the focus listener to avoid memory leaks
     };
   }, [navigation]);
 
-  // seperating post
-
-  function DisplayModat() {
-    return (
-      <BottomSheetEmptyView
-        openModal={modalVisible}
-        height={SIZES.padding * 10}
-        renderChildrents={
-          <View
-            style={{
-              paddingHorizontal: SIZES.padding,
-              paddingVertical: SIZES.padding - 5,
-            }}
-          >
-            <Text style={{ textAlign: "center", ...FONTS.h4 }}>
-              Post Content
-            </Text>
-            <View
-              style={{
-                marginTop: SIZES.padding,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: SIZES.padding,
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("PostExchange"), setModalVisible(false);
-                }}
-                style={{
-                  borderWidth: 1,
-                  borderColor: COLORS.grey60,
-                  padding: SIZES.padding,
-                  borderRadius: SIZES.radius,
-                }}
-              >
-                <IconeBotten
-                  icone={icons.exchange}
-                  iconeStyle={{ tintColor: COLORS.success }}
-                />
-                <Text>Exchange</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  setPostProperty(true), setModalVisible(false);
-                }}
-                style={{
-                  borderWidth: 1,
-                  borderColor: COLORS.grey60,
-                  padding: SIZES.padding,
-                  borderRadius: SIZES.radius,
-                }}
-              >
-                <IconeBotten
-                  icone={icons.exchange}
-                  iconeStyle={{ tintColor: COLORS.success }}
-                />
-                <Text>Post Property</Text>
-              </TouchableOpacity>
-            </View>
-            <TextButton
-              label={"Go Back"}
-              onPress={() => {
-                setModalVisible(false), navigation.goBack();
-              }}
-              contentContainerStyle={{
-                marginVertical: SIZES.padding,
-                backgroundColor: null,
-              }}
-            />
-          </View>
-        }
-      />
-    );
-  }
+  // seperating Exchange
 
   /**
    * Handles the press event of an image item.
@@ -254,9 +167,9 @@ const Post = ({ navigation }) => {
     }
   };
 
-  const handlePost = () => {
-    // Function to handle property post submission
-    // Perform necessary validation and submit the post
+  const handleExchange = () => {
+    // Function to handle property Exchange submission
+    // Perform necessary validation and submit the Exchange
   };
 
   return (
@@ -324,7 +237,7 @@ const Post = ({ navigation }) => {
           <View>
             <IconeBotten
               icone={icons.addPost}
-              iconeStyle={styles.addPostIcon}
+              iconeStyle={styles.addExchangeIcon}
               Onpress={pickImageAsync}
             />
             <Text
@@ -344,7 +257,7 @@ const Post = ({ navigation }) => {
           inputMode={"text"}
           value={PropertyTitle}
           onChange={(text) => setPropertyTitle(text)}
-          Placeholder={"Enter Property Title"}
+          Placeholder={"Enter item title"}
           inputContainerStyle={styles.inputContainer}
         />
         <CountryDropDown
@@ -352,67 +265,39 @@ const Post = ({ navigation }) => {
           dropDownState={Category}
           containerStyle={{ flex: 1, marginTop: SIZES.base }}
         />
-        <InputField
-          inputMode={"text"}
-          value={PropertyLocation}
-          onChange={(text) => setPropertyLocation(text)}
-          containerStyle={styles.inputFieldContainer}
-          Placeholder={"Enter Property Location"}
-          inputContainerStyle={styles.inputContainer}
-        />
 
         {/* Bedrooms and Bathrooms */}
-        <View style={styles.bedBathContainer}>
-          {/* monthly price */}
-          <InputField
-            inputMode={"numeric"}
-            value={PriceMonthly}
-            onChange={(text) => setPriceMonthly(text)}
-            containerStyle={styles.inputFieldContainer}
-            Placeholder={Category === "Cars" ? "Daily Price" : "Monthly Price"}
-            inputContainerStyle={styles.inputContainer}
-          />
-          {/* yearly price */}
-          <InputField
-            inputMode={"numeric"}
-            value={PriceYearly}
-            onChange={(text) => setPriceYearly(text)}
-            containerStyle={styles.inputFieldContainer}
-            Placeholder={Category === "Cars" ? "Monthly Price" : "Yearly Price"}
-            inputContainerStyle={styles.inputContainer}
-          />
-          {/* description */}
-        </View>
+
+        {/* monthly price */}
+        <InputField
+          inputMode={"text"}
+          value={PriceMonthly}
+          onChange={(text) => setPriceMonthly(text)}
+          containerStyle={styles.inputFieldContainer}
+          Placeholder={"What are Your Exchanging"}
+          inputContainerStyle={styles.inputContainer}
+        />
+        {/* yearly price */}
+        <InputField
+          inputMode={"text"}
+          value={PriceYearly}
+          onChange={(text) => setPriceYearly(text)}
+          containerStyle={styles.inputFieldContainer}
+          Placeholder={"Exchanging For (eg. phone,laptop etc)"}
+          inputContainerStyle={styles.inputContainer}
+        />
+        <InputField
+          inputMode={"text"}
+          value={PriceYearly}
+          onChange={(text) => setPriceYearly(text)}
+          containerStyle={styles.inputFieldContainer}
+          Placeholder={"If money involved (Enter)"}
+          inputContainerStyle={styles.inputContainer}
+        />
+        {/* description */}
+
         {/* price */}
-        <View style={styles.bedBathContainer}>
-          {/* beadrooms and bathrooms  */}
-          {Category === "Cars" ? (
-            <CountryDropDown
-              onPress={() => setOpenCarModule(true)}
-              dropDownState={NumberOfPassengers}
-              containerStyle={{ flex: 1 }}
-            />
-          ) : (
-            <CountryDropDown
-              onPress={() => setShowModal2(true)}
-              dropDownState={Bedrooms}
-              containerStyle={{ flex: 1 }}
-            />
-          )}
-          {Category === "Cars" ? (
-            <CountryDropDown
-              onPress={() => setOpenCarModuleType(true)}
-              dropDownState={Private}
-              containerStyle={{ flex: 1 }}
-            />
-          ) : (
-            <CountryDropDown
-              onPress={() => setShowModal1(true)}
-              dropDownState={Bathrooms}
-              containerStyle={{ flex: 1 }}
-            />
-          )}
-        </View>
+
         <InputField
           multiline={true}
           inputMode={"text"}
@@ -420,7 +305,7 @@ const Post = ({ navigation }) => {
           onChange={(text) => setDescription(text)}
           containerStyle={styles.inputFieldContainer}
           inputStyle={{ flex: 1, textAlign: "justify" }}
-          Placeholder={"Enter Description about your property"}
+          Placeholder={"Enter Description about your Exchange "}
           inputContainerStyle={{ height: 100, backgroundColor: COLORS.grey08 }}
         />
         <TextButton
@@ -428,39 +313,11 @@ const Post = ({ navigation }) => {
             height: 50,
             borderRadius: SIZES.radius,
           }}
-          label={"Post"}
+          label={"Exchange"}
           onPress={HandleSheetPresent}
         />
       </View>
-      <Select
-        openModal={openModal1}
-        height={SIZES.padding * 10}
-        Onclose={() => setShowModal1(false)}
-        setShowModal={setShowModal1}
-        data={[
-          ({ id: 1, name: "1 Bathroom" },
-          { id: 2, name: "2 Bathroom" },
-          { id: 3, name: " 3 Bathroom" },
-          { id: 4, name: " 4 Bathroom" },
-          { id: 5, name: " 5+ Bathroom" }),
-        ]}
-        setDropDownState={setBathrooms}
-      />
-      <Select
-        openModal={openModal2}
-        height={SIZES.padding * 10}
-        Onclose={() => setShowModal2(false)}
-        setShowModal={setShowModal2}
-        data={[
-          { id: 1, name: "1 Bedroom" },
-          { id: 2, name: "2 Bedroom" },
-          { id: 3, name: " 3 Bedroom" },
-          { id: 4, name: " 4 Bedroom" },
-          { id: 5, name: " 5 Bedroom" },
-          { id: 6, name: " 6+ Bedroom" },
-        ]}
-        setDropDownState={setBedrooms}
-      />
+
       <Select
         openModal={CategoryOpen}
         height={SIZES.padding * 10}
@@ -479,38 +336,9 @@ const Post = ({ navigation }) => {
       />
 
       {/* number of passengers */}
-      <Select
-        openModal={openCarModule}
-        height={SIZES.padding * 10}
-        Onclose={() => setOpenCarModule(false)}
-        setShowModal={setOpenCarModule}
-        data={[
-          { id: 1, name: "1 Pasengers" },
-          { id: 2, name: "2 Pasengers" },
-          { id: 3, name: "3 Pasengers" },
-          { id: 4, name: "4 Pasengers" },
-          { id: 5, name: "6 Pasengers" },
-          { id: 6, name: "7+ Pasengers" },
-        ]}
-        setDropDownState={setNumberOfPassengers}
-      />
+
       {/* passengers */}
       {/* number of passengers */}
-      <Select
-        openModal={openCarModuleTye}
-        height={SIZES.padding * 10}
-        Onclose={() => setOpenCarModuleType(false)}
-        setShowModal={setOpenCarModuleType}
-        data={[
-          { id: 1, name: "Vench" },
-          { id: 2, name: "Truck" },
-          { id: 3, name: "Buss" },
-          { id: 4, name: "Private" },
-          { id: 5, name: "Others" },
-        ]}
-        setDropDownState={SetPrivate}
-      />
-      {DisplayModat()}
     </ScrollView>
   );
 };
@@ -556,7 +384,7 @@ const styles = StyleSheet.create({
   imageCountText: {
     ...FONTS.h5,
   },
-  addPostIcon: {
+  addExchangeIcon: {
     tintColor: COLORS.success,
   },
   detailsContainer: {
@@ -581,4 +409,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Post;
+export default PostExchange;

@@ -2,44 +2,59 @@ import React, { useState } from "react";
 import { Profile, NearBy, Exchange, Post, Home } from "../screens/index";
 import { icons, COLORS, SIZES } from "../constants/index";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Alert, Image, TouchableOpacity, View, Text } from "react-native";
+import {
+  Alert,
+  Image,
+  TouchableOpacity,
+  View,
+  Text,
+  Modal,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   const Navigation = useNavigation();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const handleProfileClick = () => {
-    if (isLoggedIn) {
-      // User is logged in, navigate to the profile screen
-      return Navigation.navigate("Profile");
-    } else {
-      // User is not logged in, show a login prompt or navigate to the login screen
-      // For example, you can display an alert asking the user to log in
-      return Alert.alert("Alert Title", "My Alert Msg", [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
-      ]);
-    }
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // const handleLPost = () => {
+  //   if (isLoggedIn === false) {
+  //   } else {
+  //     return Navigation.navigate("Post");
+  //   }
+  // };
+  // const handleProfileClick = () => {
+  //   if (isLoggedIn === false) {
+  //     // User is logged in, navigate to the profile screen
+  //     return Navigation.navigate("Profile");
+  //   } else {
+  //     // User is not logged in, show a login prompt or navigate to the login screen
+  //     // For example, you can display an alert asking the user to log in
+  //     return Alert.alert("Alert Title", "My Alert Msg", [
+  //       {
+  //         text: "Cancel",
+  //         onPress: () => console.log("Cancel Pressed"),
+  //         style: "cancel",
+  //       },
+  //       { text: "OK", onPress: () => console.log("OK Pressed") },
+  //     ]);
+  //   }
+  // };
   const TabIcon = ({ icon, focused, Onpress }) => {
     return (
-      // <TouchableOpacity onPress={Onpress}>
-      <Image
-        resizeMode="cover"
-        source={icon}
-        style={{
-          width: 30,
-          height: 30,
-          tintColor: focused === true ? COLORS.primary : COLORS.grey,
-        }}
-      />
-      // </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={Onpress}>
+        <Image
+          resizeMode="cover"
+          source={icon}
+          style={{
+            width: 30,
+            height: 30,
+            tintColor: focused === true ? COLORS.primary : COLORS.grey,
+          }}
+        />
+      </TouchableWithoutFeedback>
     );
   };
   return (
@@ -84,9 +99,15 @@ const TabNavigation = () => {
             TabIcon({
               icon: icons.addPost,
               focused: focused,
-              // Onpress: () => Navigation.navigate("Post"),
             }),
         }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //     handleLPost();
+        //   },
+        // }}
         component={Post}
       />
       <Tab.Screen
@@ -112,13 +133,13 @@ const TabNavigation = () => {
             }),
           headerShown: false,
         }}
-        listeners={{
-          tabPress: (e) => {
-            // Prevent default action
-            e.preventDefault();
-            handleProfileClick();
-          },
-        }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     // Prevent default action
+        //     e.preventDefault();
+        //     handleProfileClick();
+        //   },
+        // }}
         component={Profile}
       />
     </Tab.Navigator>
