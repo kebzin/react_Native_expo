@@ -16,6 +16,7 @@ import Message from "./Message/Message";
 import ViewMessages from "./Message/ViewMessages";
 import Settings from "./Profile/Settings";
 import PostExchange from "./Post/Exchange";
+import Notification from "./Message/Notification";
 
 export {
   ProfileInfo,
@@ -36,4 +37,5 @@ export {
   ViewMessages,
   Settings,
   PostExchange,
+  Notification,
 };

@@ -36,6 +36,7 @@ const Home = ({ navigation }) => {
       <HeaderComponent
         scrollY={scrollY}
         Title={"Home"}
+        onPress={() => navigation.navigate("Notification")}
         messagePress={HandleMessageNavigation}
       />
       {/* input and category component */}

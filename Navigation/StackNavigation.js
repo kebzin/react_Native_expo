@@ -13,6 +13,7 @@ import {
   ViewMessages,
   Settings,
   PostExchange,
+  Notification,
 } from "../screens/index";
 import React from "react";
 import TabNavigation from "./TabNavigation";
@@ -38,6 +39,7 @@ const StackNavigation = () => {
       <Stack.Screen name="AuthMain" component={AuthMain} />
       <Stack.Screen name="Setting" component={Settings} />
       <Stack.Screen name="PostExchange" component={PostExchange} />
+      <Stack.Screen name="Notification" component={Notification} />
 
       <Stack.Screen
         name="ProfileInfo"
