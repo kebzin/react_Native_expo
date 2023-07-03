@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { COLORS, SIZES, FONTS, icons } from "../constants/index";
 import {
@@ -7,13 +7,56 @@ import {
   IconeBotten,
   CheckBox,
 } from "../components/index";
+import { useDispatch } from "react-redux";
+import { RegisterUser } from "../features/user/UserSlice";
+
 const Register = () => {
-  const [userName, setUserName] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
-  const [Phone, setPHone] = useState("");
-  const [termCheck, setTermCheck] = useState(true);
+  const [phoneNumber, setPHone] = useState("");
+  const [termCheck, setTermCheck] = useState(false);
   const [Password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
+
+  // hook
+  const dispatch = useDispatch();
+
+  // const canSave =
+  //   Boolean(firstName) &&
+  //   Boolean(lastName) &&
+  //   Boolean(Email) &&
+  //   Boolean(phoneNumber) &&
+  //   Boolean(Password) &&
+  //   Boolean(termCheck);
+
+  const onRegisterUser = async () => {
+    // if (canSave) {
+    try {
+      setAddRequestStatus("pending");
+      await dispatch(
+        RegisterUser({
+          firstName,
+          lastName,
+          phoneNumber,
+          Password,
+          Email,
+          termCheck,
+        })
+      ).unwrap();
+      setFirstName("");
+      setLastName("");
+      setPHone("");
+      setPassword("");
+      setEmail("");
+      setTermCheck(false);
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      setAddRequestStatus("idle");
+    }
+  };
 
   return (
     <View style={style.Containe}>
@@ -30,9 +73,34 @@ const Register = () => {
             marginTop: 50,
             marginBottom: 10,
           }}
-          Placeholder={"Enter Full Name"}
-          onChange={(text) => setUserName(text)}
-          value={userName}
+          Placeholder={"Enter First Name"}
+          onChange={(text) => setFirstName(text)}
+          value={firstName}
+          inputMode={"text"}
+          prependComponent={
+            <Image
+              source={icons.person}
+              style={{
+                width: 25,
+                height: 25,
+                marginRight: SIZES.base,
+              }}
+            />
+          }
+        />
+
+        {/* lastname */}
+        <InputField
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
+          containerStyle={{
+            marginTop: 5,
+            marginBottom: 10,
+          }}
+          Placeholder={"Enter Last Name"}
+          onChange={(text) => setLastName(text)}
+          value={lastName}
           inputMode={"text"}
           prependComponent={
             <Image
@@ -79,7 +147,7 @@ const Register = () => {
           }}
           Placeholder={"+220 2493268"}
           onChange={(text) => setPHone(text)}
-          value={Phone}
+          value={phoneNumber}
           inputMode={"tel"}
           prependComponent={
             <Image
@@ -95,9 +163,9 @@ const Register = () => {
 
         {/* password field */}
         <InputField
-         inputContainerStyle={{
-          backgroundColor: COLORS.lightGrey80,
-        }}
+          inputContainerStyle={{
+            backgroundColor: COLORS.lightGrey80,
+          }}
           containerStyle={{
             marginTop: 1,
             marginBottom: 10,
@@ -149,6 +217,7 @@ const Register = () => {
 
         {/* register button  */}
         <TextButton
+          onPress={onRegisterUser}
           label={"Create Account"}
           contentContainerStyle={{
             height: 50,
@@ -163,7 +232,7 @@ const Register = () => {
 
 const style = StyleSheet.create({
   Containe: {
-    height: SIZES.height * 0.7,
+    height: SIZES.height * 0.8,
     backgroundColor: "white",
     shadowColor: "#000",
     shadowOffset: {

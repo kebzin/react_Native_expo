@@ -45,8 +45,25 @@ const edit = require("../assets/icons/edit.png");
 const chat = require("../assets/icons/chat.png");
 const send = require("../assets/icons/send.png");
 const done = require("../assets/icons/done.png");
+const like = require("../assets/icons/like.png");
+
+const car1 = require("../assets/icons/car1.png");
+const appartment = require("../assets/icons/appartment.png");
+const bath = require("../assets/icons/bath.png");
+const bed = require("../assets/icons/bed.png");
+
+const room = require("../assets/icons/room.png");
+const shop = require("../assets/icons/shop.png");
+const likeFll = require("../assets/icons/likeFll.png");
 
 export default {
+  car1,
+  shop,
+  bed,
+  bath,
+  room,
+  appartment,
+  likeFll,
   condition,
   setting,
   arrowRight,
@@ -94,4 +111,5 @@ export default {
   chat,
   send,
   done,
+  like,
 };

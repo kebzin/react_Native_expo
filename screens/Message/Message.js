@@ -22,6 +22,20 @@ const Message = ({ navigation }) => {
   const HandleNavigation = (item) => {
     return navigation.navigate("ViewMessages", {
       item,
+      profileImage:
+        item.id === 1
+          ? images.banner02
+          : item.id === 2
+          ? images.banner03
+          : item.id === 3
+          ? images.buy_coffee
+          : item.id === 4
+          ? images.get_reward
+          : item.id === 5
+          ? images.lock
+          : item.id === 6
+          ? images.walkthrough_04_04
+          : images.qr_code,
     });
   };
 

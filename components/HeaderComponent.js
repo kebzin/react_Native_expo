@@ -15,18 +15,23 @@ import { color } from "react-native-reanimated";
 
 const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
   const headerTranslateY = scrollY.interpolate({
-    inputRange: [0, 100],
-    outputRange: [0, -100],
+    inputRange: [0, 0], // Adjust the values based on when you want the header animation to start
+    outputRange: [0, -10], // Adjust the values based on the desired header translateY
     extrapolate: "clamp",
   });
 
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View
-        style={[
-          styles.header,
-          { transform: [{ translateY: headerTranslateY }] },
-        ]}
+        style={{
+          position: "absolute",
+          top: 10,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          paddingHorizontal: SIZES.padding - 10,
+          // transform: [{ translateY: headerTranslateY }],
+        }}
       >
         <View style={styles.headerContent}>
           <View style={styles.logoContainer}>
@@ -41,18 +46,16 @@ const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
               <Text
                 style={{
                   position: "absolute",
-                  top: -15,
-                  color: COLORS.light,
+                  top: -3,
+
                   backgroundColor: COLORS.error,
                   borderRadius: 50,
-                  width: 20,
-                  height: 20,
+                  width: 7,
+                  height: 7,
                   textAlign: "center",
                   ...FONTS.body5,
                 }}
-              >
-                0
-              </Text>
+              ></Text>
               <Image source={icons.chat} style={styles.bellIcon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={onPress} style={styles.bellContainer}>
@@ -67,23 +70,20 @@ const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.primary,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    backgroundColor: COLORS.lightGrey,
     paddingHorizontal: SIZES.padding - 10,
   },
   header: {
     position: "absolute",
-    top: StatusBar.currentHeight,
+    top: StatusBar.currentHeight - 20,
     left: 0,
     right: 0,
     paddingHorizontal: SIZES.padding - 10,
-    backgroundColor: COLORS.primary,
   },
   headerContent: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: SIZES.base,
   },
   logoContainer: {
     width: 40,
@@ -101,8 +101,11 @@ const styles = StyleSheet.create({
     color: COLORS.light,
   },
   bellContainer: {
-    width: 25,
-    height: 25,
+    width: 30,
+    height: 30,
+    backgroundColor: COLORS.grey80,
+    borderRadius: SIZES.radius - 5,
+    padding: 3,
     position: "relative",
   },
   bellIcon: {

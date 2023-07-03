@@ -16,6 +16,8 @@ import {
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import StackNavigation from "./Navigation/StackNavigation";
 
+import Store from "./store/Store";
+import { Provider } from "react-redux";
 const Stack = createStackNavigator();
 export default function App() {
   const { fontsLoaded, onLayoutRootView } = useCustomFonts();
@@ -23,12 +25,14 @@ export default function App() {
     return null;
   }
   return (
-    <NavigationContainer>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <StackNavigation />
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-    </NavigationContainer>
+    <Provider store={Store}>
+      <NavigationContainer>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <StackNavigation />
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </NavigationContainer>
+    </Provider>
   );
 }

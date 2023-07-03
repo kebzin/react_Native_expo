@@ -16,18 +16,13 @@ const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
   // hooks
   const Navigation = useNavigation();
   const categoryTranslateY = scrollY.interpolate({
-    inputRange: [0, 100], // Adjust the values based on when you want the category animation to start
-    outputRange: [0, -100], // Adjust the values based on the desired category translateY
+    inputRange: [0, 200], // Adjust the values based on when you want the category animation to start
+    outputRange: [0, -200], // Adjust the values based on the desired category translateY
     extrapolate: "clamp",
   });
   return (
     <SafeAreaView style={style.container}>
-      <Animated.View
-        style={{
-          paddingHorizontal: SIZES.padding - 10,
-          transform: [{ translateY: categoryTranslateY }],
-        }}
-      >
+      <Animated.View>
         <InputField
           onPress={() => {
             Navigation.navigate("Search");
@@ -47,7 +42,7 @@ const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.lightGrey,
     marginTop: 50,
     paddingVertical: SIZES.base,
   },

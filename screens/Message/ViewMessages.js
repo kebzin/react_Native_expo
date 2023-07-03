@@ -25,13 +25,36 @@ import { IconeBotten, InputField } from "../../components/index";
 const ViewMessages = ({ route, navigation }) => {
   const [messages, setMessages] = useState();
 
-  const { item } = route.params;
+  const { item, profileImage } = route.params;
 
   // setting the routh oprion
   useEffect(() => {
     navigation.setOptions({
       title: item.title,
-      headerStyle: {},
+      headerTitleStyle: {
+        ...FONTS.body3,
+        letterSpacing: 0,
+      },
+      headerLeft: (props) => (
+        <View style={{ flexDirection: "row", alignItem: "center", gap: 20 }}>
+          <IconeBotten
+            Onpress={() => navigation.goBack()}
+            icone={icons.arrow_left}
+            iconeStyle={{ tintColor: COLORS.dark }}
+          />
+
+          <IconeBotten
+            icone={images.banner02}
+            iconeStyle={{
+              tintColor: null,
+              width: 40,
+              height: 40,
+              borderRadius: 50,
+              resizeMode: "contain",
+            }}
+          />
+        </View>
+      ),
     });
   }, [navigation]);
 
