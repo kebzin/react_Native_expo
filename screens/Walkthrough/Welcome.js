@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image } from "react-native";
 
 import { TextButton } from "../../components";
 import { COLORS, FONTS, SIZES, images } from "../../constants";
+import { checkAuthentication } from "../../healper/AuthenticationHealper";
+import { useDispatch, useSelector } from "react-redux";
+import { isLogin, selectIsLogin } from "../../features/auth/authSlice";
 
 const Welcome = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const IsLogin = useSelector(selectIsLogin);
+  useEffect(() => {
+    let isMounted = true; // Flag to track component mount status
+    const authenticateUser = async () => {
+      const isAuthenticated = await checkAuthentication(dispatch);
+      if (!isMounted) {
+        return; // Abort the action if the component has unmounted
+      }
+      if (!isAuthenticated) {
+        navigation.navigate("Home");
+      }
+      navigation.navigate("Home");
+      // Display the login message after a delay of 3 seconds
+    };
+
+    // Set the isLogin state to true
+    dispatch(isLogin({ isLogin: true }));
+
+    // Call the authenticateUser function
+    authenticateUser();
+    // Cleanup function
+    return () => {
+      isMounted = false; // Set the flag to false when the component unmounts
+    };
+  }, [dispatch, navigation]);
   return (
     <View
       style={{

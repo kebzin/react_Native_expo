@@ -18,8 +18,15 @@ import {
   TextButton,
 } from "../../components/index";
 import { ColorSpace } from "react-native-reanimated";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentToken,
+  selectIsLogin,
+} from "../../features/auth/authSlice";
 
 const ProfileInfo = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const LoginUser = useSelector(selectCurrentToken);
   return (
     <View style={style.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
@@ -44,16 +51,19 @@ const ProfileInfo = ({ navigation }) => {
           <View style={style.profileInfoContainer}>
             <Image style={style.profileImage} source={icons.logo} />
             <Text style={{ ...FONTS.h3, paddingTop: SIZES.h3 }}>
-              Kebba Waiga
+              {LoginUser?.user?.firstName + " " + LoginUser.user?.lastName}
             </Text>
           </View>
           {/* profile info */}
 
           <ProfileDetaile
             title={"Email"}
-            description={"Kebbawaiga@Gmail.com"}
+            description={LoginUser?.user?.Email}
           />
-          <ProfileDetaile title={"Phone Number"} description={"+220 2493268"} />
+          <ProfileDetaile
+            title={"Phone Number"}
+            description={"+ 220" + " " + LoginUser?.user?.PhoneNumber}
+          />
           <ProfileDetaile
             title={"Social Network"}
             description={"My other Plateforms"}

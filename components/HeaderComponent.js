@@ -14,24 +14,19 @@ import { COLORS, icons, SIZES, images, title, FONTS } from "../constants/index";
 import { color } from "react-native-reanimated";
 
 const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
-  const headerTranslateY = scrollY.interpolate({
-    inputRange: [0, 0], // Adjust the values based on when you want the header animation to start
-    outputRange: [0, -10], // Adjust the values based on the desired header translateY
-    extrapolate: "clamp",
-  });
+  // const headerTranslateY = scrollY.interpolate({
+  //   inputRange: [0, 100], // Adjust the values based on when you want the header animation to start
+  //   outputRange: [0, -50], // Adjust the values based on the desired header translateY
+  //   extrapolate: "clamp",
+  // });
 
   return (
     <SafeAreaView style={styles.container}>
       <Animated.View
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          paddingHorizontal: SIZES.padding - 10,
-          // transform: [{ translateY: headerTranslateY }],
-        }}
+        style={
+          styles.header
+          //transform: [{ translateY: headerTranslateY }],
+        }
       >
         <View style={styles.headerContent}>
           <View style={styles.logoContainer}>
@@ -69,15 +64,13 @@ const HeaderComponent = ({ scrollY, onPress, Title, messagePress }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.lightGrey,
-    paddingHorizontal: SIZES.padding - 10,
-  },
+  container: {},
   header: {
     position: "absolute",
     top: StatusBar.currentHeight - 20,
     left: 0,
     right: 0,
+    zIndex: 50,
     paddingHorizontal: SIZES.padding - 10,
   },
   headerContent: {

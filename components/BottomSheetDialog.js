@@ -12,6 +12,7 @@ const BottomSheetDialog = ({
   Icone,
   HandleClick,
   ButtonText,
+  PanDownToClose,
 }) => {
   // ref
 
@@ -21,6 +22,7 @@ const BottomSheetDialog = ({
 
   return (
     <BottomSheetModal
+      enableHandlePanningGesture={PanDownToClose}
       // bottomInset={46}
       // set `detached` to true
       // detached={true}
@@ -31,8 +33,23 @@ const BottomSheetDialog = ({
     >
       <View style={styles.container}>
         <View style={styles.contentContainer}>
-          <Image source={Icone} style={styles.IconeCheckMark} />
-          <Text style={{ color: COLORS.success, alignSelf: "center" }}>
+          <Image
+            source={Icone}
+            style={{
+              tintColor: Status === "Error" ? COLORS.error : COLORS.success,
+              width: 100,
+              height: 100,
+              resizeMode: "contain",
+              marginVertical: SIZES.padding,
+              alignSelf: "center",
+            }}
+          />
+          <Text
+            style={{
+              color: Status === "Error" ? COLORS.error : COLORS.success,
+              alignSelf: "center",
+            }}
+          >
             {Status}
           </Text>
           <Text style={{ ...FONTS.h3, alignSelf: "center" }}>{Title}</Text>
@@ -75,6 +92,8 @@ const styles = StyleSheet.create({
   IconeCheckMark: {
     tintColor: COLORS.success,
     width: 100,
+    height: 100,
+    resizeMode: "contain",
     marginVertical: SIZES.padding,
     alignSelf: "center",
   },

@@ -14,12 +14,14 @@ import {
   Settings,
   PostExchange,
   Notification,
+  Account,
+  PropertyDetails,
 } from "../screens/index";
 import React from "react";
 import TabNavigation from "./TabNavigation";
 
 const Stack = createStackNavigator();
-const StackNavigation = () => {
+const StackNavigation = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -40,6 +42,8 @@ const StackNavigation = () => {
       <Stack.Screen name="Setting" component={Settings} />
       <Stack.Screen name="PostExchange" component={PostExchange} />
       <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="PropertyDetails" component={PropertyDetails} />
 
       <Stack.Screen
         name="ProfileInfo"

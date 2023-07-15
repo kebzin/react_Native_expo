@@ -68,7 +68,11 @@ const Walkthrough = ({ navigation }) => {
               flex: 1,
               borderRadius: SIZES.radius,
             }}
-            onPress={() => navigation.navigate("AuthMain")}
+            onPress={() =>
+              navigation.navigate("AuthMain", {
+                register: false,
+              })
+            }
           />
         </View>
       </View>

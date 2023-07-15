@@ -75,7 +75,7 @@ const ForgetPassword = ({ navigation }) => {
 
 const style = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     paddingHorizontal: SIZES.padding,
     flex: 1,
     backgroundColor: COLORS.lightGrey,

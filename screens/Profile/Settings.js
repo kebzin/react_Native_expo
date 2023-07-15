@@ -58,8 +58,10 @@ const Settings = ({ navigation }) => {
         <RenderSettingElement
           toggleFunction={toggleSwitch}
           isEnabled={isEnabled}
-          title={"Notifications"}
-          subTitle={"Enable or disable notifications"}
+          title={"Recive Message"}
+          subTitle={
+            "Enable to recived message, if this is trun off you wont revive message "
+          }
         />
         <RenderSettingElement
           toggleFunction={toggleSwitch}

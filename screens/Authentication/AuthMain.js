@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,10 +18,33 @@ import {
 import { Image } from "react-native";
 import { Register, Login, TextButton } from "../../components/index";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { decryptData } from "../../components/EncriptionAndDescription";
+import { setCredentials } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AuthMain = ({ navigation }) => {
+const AuthMain = ({ navigation, route }) => {
   const [mode, setmode] = useState(true);
+  const { register } = route.params;
+
+  // hook
+  const dispatch = useDispatch();
   // handle key board press
+
+  // checked for lokinb
+  useEffect(() => {
+    // Function to fetch and load login data
+    if (register) {
+      setmode(false);
+    }
+
+    // Clean up function
+    // return () => {
+    //   // Perform any necessary cleanup (if applicable)
+    //   // For example, cancel any pending requests or subscriptions
+    // };
+  }, []);
+
   const handlePress = () => {
     Keyboard.dismiss();
   };
@@ -40,7 +63,7 @@ const AuthMain = ({ navigation }) => {
         <Image source={images.logo} alt="logo" style={styles.logo} />
 
         {mode === false ? (
-          <Register navigation={navigation} />
+          <Register navigation={navigation} setmode={setmode} />
         ) : (
           <Login navigation={navigation} />
         )}

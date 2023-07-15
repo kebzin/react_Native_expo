@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -18,36 +18,43 @@ import {
   IconeBotten,
   TextButton,
 } from "../../components/index";
+import {
+  selectCurrentToken,
+  selectIsLogin,
+} from "../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import LoginPopUp from "../../healper/LoginPopUp";
 
 const Profile = ({ navigation }) => {
   //states;
   const scrollY = useRef(new Animated.Value(0)).current;
-  const [isLogin, setIsLogin] = useState(false);
+  const [LoginModalVisible, setLoginModalVisible] = useState(false);
 
   // hooks
   const bottomSheetModalRef = useRef(null);
-
+  const dispatch = useDispatch();
+  const IsLogin = useSelector(selectIsLogin);
+  const LoginUser = useSelector(selectCurrentToken);
+  console.log(LoginUser);
   // bottom sheet function
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
 
-  const RenderLoginComponent = () => {
-    return (
-      <View style={styles.loginPromptContainer}>
-        <View style={styles.loginButtonsContainer}>
-          <TextButton
-            label={"Register"}
-            contentContainerStyle={styles.loginButton}
-          />
-          <TextButton
-            label={"Login"}
-            contentContainerStyle={styles.loginButton}
-          />
-        </View>
-      </View>
-    );
-  };
+  // function that checked for something that need to be checked or do when the component render
+  useEffect(() => {
+    // Set up a focus listener to show the modal when the screen gains focus
+    const focusListener = navigation.addListener("focus", () => {
+      if (!IsLogin) {
+        return setLoginModalVisible(true), handlePresentModalPress();
+      }
+    });
+
+    // Clean up the listener when the component unmounts or when the dependencies change
+    return () => {
+      focusListener(); // Remove the focus listener to avoid memory leaks
+    };
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -55,7 +62,9 @@ const Profile = ({ navigation }) => {
         <View style={styles.profileInfoContainer}>
           <Image source={icons.logo} style={styles.profileImage} />
           <View style={styles.profileTextContainer}>
-            <Text style={styles.profileName}>Kebba Waiga</Text>
+            <Text style={styles.profileName}>
+              {LoginUser?.user.firstName + " " + LoginUser?.user.lastName}
+            </Text>
             <TouchableOpacity>
               <Text style={styles.personalInfo}>Personal Info</Text>
             </TouchableOpacity>
@@ -89,8 +98,8 @@ const Profile = ({ navigation }) => {
       >
         <View style={styles.shadowContainer}>
           <RenderProfileContent
-            onPress={() => navigation.navigate("ProfileInfo")}
-            Title={"Profile Info"}
+            onPress={() => navigation.navigate("Account")}
+            Title={"Account"}
             IconLeft={icons.person2}
             description="See your profile info"
             IconRight={icons.arrowRight}
@@ -141,19 +150,18 @@ const Profile = ({ navigation }) => {
 
         {/* Repeat the above code blocks for other sections */}
       </ScrollView>
-
-      {isLogin && RenderLoginComponent}
-      <BottomSheetDialog
-        bottomSheetModalRef={bottomSheetModalRef}
-        Title={"Logout Confermation"}
-        ButtonText={"Continue"}
-        Icone={icons.checkmark}
-        Status={"Success"}
-        Message={"Are you sure that you want to logout"}
-        HandleClick={() => {
-          bottomSheetModalRef.current?.close(), navigation.navigate("Password");
-        }}
-      />
+      {/* show the modal prop if not log in */}
+      {
+        <LoginPopUp
+          modalVisible={LoginModalVisible}
+          navigation={navigation}
+          setModalVisible={setLoginModalVisible}
+          cancelFunction={() => {
+            navigation.goBack();
+            setLoginModalVisible(false);
+          }}
+        />
+      }
     </View>
   );
 };
@@ -305,7 +313,7 @@ const styles = StyleSheet.create({
   profileContentDescription: {
     ...FONTS.body5,
     color: COLORS.grey,
-    lineHeight: 12,
+    lineHeight: 15,
     marginTop: 3,
   },
 });

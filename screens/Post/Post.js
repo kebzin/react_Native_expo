@@ -22,6 +22,9 @@ import {
 } from "../../components/index";
 
 import * as ImagePicker from "expo-image-picker";
+import LoginPopUp from "../../healper/LoginPopUp";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLogin } from "../../features/auth/authSlice";
 
 /**
  * Component responsible for displaying a screen for adding a property post.
@@ -52,9 +55,12 @@ const Post = ({ navigation }) => {
   const [exchange, setExchnge] = useState(false);
   const [postProperty, setPostProperty] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [LoginModalVisible, setLoginModalVisible] = useState(false);
 
   // hooks
   const bottomSheetModalRef = useRef(null);
+  const dispatch = useDispatch();
+  const IsLogin = useSelector(selectIsLogin);
 
   const HandleSheetPresent = useCallback(() => {
     bottomSheetModalRef?.current?.present();
@@ -75,6 +81,9 @@ const Post = ({ navigation }) => {
 
     // Set up a focus listener to show the modal when the screen gains focus
     const focusListener = navigation.addListener("focus", () => {
+      if (!IsLogin) {
+        return setLoginModalVisible(true), HandleSheetPresent();
+      }
       setModalVisible(true);
     });
 
@@ -188,7 +197,7 @@ const Post = ({ navigation }) => {
   //              The selected images are added to the existing images state, and the first
   //              image is set as the preview image if there is no existing preview.
   // Returns: Promise<void>
-  const pickImageAsync = async () => {
+  const pickImageAsync = async ({ navigation }) => {
     try {
       // Request permission from the user to access the image library
       const { status } =
@@ -253,7 +262,6 @@ const Post = ({ navigation }) => {
       // You can show an error message or perform any other necessary actions
     }
   };
-
   const handlePost = () => {
     // Function to handle property post submission
     // Perform necessary validation and submit the post
@@ -511,6 +519,19 @@ const Post = ({ navigation }) => {
         setDropDownState={SetPrivate}
       />
       {DisplayModat()}
+
+      {/* show the modal prop if not log in */}
+      {
+        <LoginPopUp
+          modalVisible={LoginModalVisible}
+          navigation={navigation}
+          setModalVisible={setLoginModalVisible}
+          cancelFunction={() => {
+            navigation.goBack();
+            setLoginModalVisible(false);
+          }}
+        />
+      }
     </ScrollView>
   );
 };

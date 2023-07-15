@@ -62,7 +62,7 @@ const ViewMessages = ({ route, navigation }) => {
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       enabled={true}
-      behavior={Platform.OS === "ios" ? "padding" : "padding"}
+      // behavior={Platform.OS === "ios" ? "padding" : "padding"}
     >
       <View style={{ flex: 1 }}>
         <View

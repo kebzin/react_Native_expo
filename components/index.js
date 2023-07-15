@@ -12,6 +12,7 @@ import CategoryAndInputCombine from "./CategoryAndImputComponent";
 import Select from "./Select";
 import KeyboardAvoidanceView from "./KeyboardAvoidanceView";
 import BottomSheetEmptyView from "./BottomSheetEmptyView";
+import CategorySectionHome from "./CategorySectionHome";
 
 export {
   CountryDropDown,
@@ -28,4 +29,5 @@ export {
   Select,
   KeyboardAvoidanceView,
   BottomSheetEmptyView,
+  CategorySectionHome,
 };

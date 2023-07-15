@@ -55,8 +55,14 @@ const bed = require("../assets/icons/bed.png");
 const room = require("../assets/icons/room.png");
 const shop = require("../assets/icons/shop.png");
 const likeFll = require("../assets/icons/likeFll.png");
+const location = require("../assets/icons/location.png");
+const shopp = require("../assets/icons/shopp.png");
+const rating = require("../assets/icons/rating.png");
 
 export default {
+  rating,
+  shopp,
+  location,
   car1,
   shop,
   bed,

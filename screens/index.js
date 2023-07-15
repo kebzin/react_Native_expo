@@ -17,8 +17,12 @@ import ViewMessages from "./Message/ViewMessages";
 import Settings from "./Profile/Settings";
 import PostExchange from "./Post/Exchange";
 import Notification from "./Message/Notification";
+import Account from "./Profile/Account";
+import PropertyDetails from "./Details/PropertyDetails";
+// import PropertyDetails from "./Details/PropertyDetails";
 
 export {
+  PropertyDetails,
   ProfileInfo,
   Welcome,
   Walkthrough,
@@ -38,4 +42,5 @@ export {
   Settings,
   PostExchange,
   Notification,
+  Account,
 };

@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import { COLORS, SIZES, FONTS, icons } from "../constants/index";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View, Image, Keyboard } from "react-native";
+import { COLORS, SIZES, FONTS, icons, images } from "../constants/index";
 import {
   TextButton,
   InputField,
   IconeBotten,
   CheckBox,
+  BottomSheetDialog,
 } from "../components/index";
 import { useDispatch } from "react-redux";
-import { RegisterUser } from "../features/user/UserSlice";
+import {
+  useRegisterUserMutation,
+  useRegisterUserQuery,
+} from "../features/user/UserSlice";
+import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native";
 
-const Register = () => {
+const Register = ({ setmode }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [Email, setEmail] = useState("");
@@ -22,35 +28,43 @@ const Register = () => {
 
   // hook
   const dispatch = useDispatch();
+  const bottomSheetModalRef = useRef(null);
+  const Navigate = useNavigation();
+  const [registerNewUser, { isLoading, isSuccess, isError, error, data }] =
+    useRegisterUserMutation();
 
-  // const canSave =
-  //   Boolean(firstName) &&
-  //   Boolean(lastName) &&
-  //   Boolean(Email) &&
-  //   Boolean(phoneNumber) &&
-  //   Boolean(Password) &&
-  //   Boolean(termCheck);
+  // bottom sheet
 
-  const onRegisterUser = async () => {
-    // if (canSave) {
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+    Keyboard.dismiss();
+  }, []);
+
+  const canSave =
+    Boolean(firstName) &&
+    Boolean(lastName) &&
+    Boolean(Email) &&
+    Boolean(phoneNumber) &&
+    Boolean(Password) &&
+    Boolean(termCheck);
+
+  const onRegisterUser = async (event) => {
+    // event.preventDefault();
+
     try {
-      setAddRequestStatus("pending");
-      await dispatch(
-        RegisterUser({
-          firstName,
-          lastName,
-          phoneNumber,
-          Password,
-          Email,
-          termCheck,
-        })
-      ).unwrap();
-      setFirstName("");
-      setLastName("");
-      setPHone("");
-      setPassword("");
-      setEmail("");
-      setTermCheck(false);
+      if (canSave) {
+        return (
+          await registerNewUser({
+            firstName: firstName,
+            lastName: lastName,
+            Email: Email,
+            password: Password,
+            PhoneNumber: phoneNumber,
+            termCheck: termCheck,
+          }),
+          handlePresentModalPress()
+        );
+      }
     } catch (err) {
       console.error(err.message);
     } finally {
@@ -61,6 +75,20 @@ const Register = () => {
   return (
     <View style={style.Containe}>
       <View style={style.secondContainer}>
+        {isLoading && (
+          <ActivityIndicator
+            size="large"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              zIndex: 30,
+            }}
+          />
+        )}
+
         <Text style={{ width: "60%", ...FONTS.h2 }}>Creat new account</Text>
         {/* Input fields  */}
 
@@ -217,12 +245,44 @@ const Register = () => {
 
         {/* register button  */}
         <TextButton
-          onPress={onRegisterUser}
+          onPress={() => onRegisterUser()}
           label={"Create Account"}
+          disabled={!canSave || isLoading}
           contentContainerStyle={{
             height: 50,
             marginTop: 20,
             borderRadius: SIZES.radius,
+          }}
+        />
+        {/* {isError && (
+          <Text style={{ textAlign: "center", ...FONTS.body5 }}>
+            {error?.data?.message}
+          </Text>
+        )} */}
+        <BottomSheetDialog
+          PanDownToClose={false}
+          bottomSheetModalRef={bottomSheetModalRef}
+          Title={
+            isError === true
+              ? "Oops Something went wrong "
+              : " Register Successfully"
+          }
+          ButtonText={isError === true ? "Try again" : "Continue to login"}
+          Icone={isError === true ? images.warning : icons.checkmark}
+          Status={isError === true ? "Error" : "Success"}
+          Message={isError ? error?.data?.message : isSuccess && data.message}
+          HandleClick={() => {
+            if (isSuccess) {
+              setmode((prev) => !prev);
+              return bottomSheetModalRef.current?.close();
+            } else if (isError) {
+              return bottomSheetModalRef.current?.close();
+            }
+
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{ name: "AuthMain" }],
+            // });
           }}
         />
       </View>

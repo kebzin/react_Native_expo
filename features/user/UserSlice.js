@@ -1,44 +1,68 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+/**
+ * userSliceApiSlice: Slice for managing user-related API endpoints
+ * - The userSliceApiSlice includes API endpoints for registering, updating, and deleting users.
+ * - It utilizes the apiSlice from "../api/apiSlice" for handling API requests.
+ * - The code also includes the usage of createEntityAdapter and createAsyncThunk from "@reduxjs/toolkit".
+ */
+
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+  createSelector,
+} from "@reduxjs/toolkit";
 import axios from "axios";
+import { apiSlice } from "../api/apiSlice";
 
-export const makeRequest = axios.create({
-  baseURL: "http://localhost:3009/api",
-  withCredentials: true,
-  headers: { "Content-Type": "application/json" },
+// Create entity adapter for user entities
+const userAdapter = createEntityAdapter({});
+const initialState = userAdapter.getInitialState();
+
+// userSliceApiSlice: Slice for managing user-related API endpoints
+export const userSliceApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    // registerUser: API endpoint for registering a user
+    registerUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "auth/register",
+        method: "POST",
+        body: {
+          ...initialUserData,
+        },
+      }),
+    }),
+
+    // updateUser: API endpoint for updating a user
+    updateUser: builder.mutation({
+      query: (initialUserData) => ({
+        url: "user/update",
+        method: "PATCH",
+        body: {
+          ...initialUserData,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "user", id: arg.id }],
+    }),
+
+    // deleteUser: API endpoint for deleting a user
+    deleteUser: builder.mutation({
+      query: ({ id }) => ({
+        url: "user/delete",
+        method: "DELETE",
+        body: { id },
+      }),
+    }),
+  }),
+  overrideExisting: true,
 });
 
-const initialState = {
-  posts: [],
-  status: "idle",
-  error: null,
-};
+// Select the result of the registerUser endpoint
+export const selectUserResult =
+  userSliceApiSlice.endpoints.registerUser.select();
 
-export const RegisterUser = createAsyncThunk("users/faddUser", async () => {
-  async (initialPost) => {
-    const response = await makeRequest.post("auth/register", initialPost);
-    console.log(response);
-    return response.data;
-  };
-});
-
-const usersSlice = createSlice({
-  name: "users",
-  initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder.addCase(RegisterUser.fulfilled, (state, action) => {
-      return action.payload;
-    });
-    builder.addCase(RegisterUser.pending),
-      (state, action) => {
-        return action.payload;
-      };
-    builder.addCase(RegisterUser.rejected),
-      (state, action) => {
-        return action.payload;
-      };
-  },
-});
-
-export const { postAdded } = usersSlice.actions;
-export default usersSlice.reducer;
+// Export API hooks from the userSliceApiSlice
+export const {
+  useDeleteUserMutation,
+  useRegisterUserMutation,
+  useUpdateUserMutation,
+} = userSliceApiSlice;

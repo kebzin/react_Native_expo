@@ -17,8 +17,13 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import StackNavigation from "./Navigation/StackNavigation";
 
 import Store from "./store/Store";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
+import LoginChecked from "./screens/Authentication/LoginChecked";
+import { useEffect } from "react";
+import { selectCurrentToken } from "./features/auth/authSlice";
+
 const Stack = createStackNavigator();
+
 export default function App() {
   const { fontsLoaded, onLayoutRootView } = useCustomFonts();
   if (!fontsLoaded) {
@@ -27,11 +32,15 @@ export default function App() {
   return (
     <Provider store={Store}>
       <NavigationContainer>
+        {/* <LoginChecked
+          renderChildrents={ */}
         <GestureHandlerRootView style={{ flex: 1 }}>
           <BottomSheetModalProvider>
             <StackNavigation />
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
+        {/* }
+        /> */}
       </NavigationContainer>
     </Provider>
   );

@@ -25,9 +25,13 @@ const ProfileInfo = ({ navigation }) => {
   const [dropDownState, setDropDownState] = useState("Male");
   const [accounttype, setAccounttype] = useState("Dfault Account");
   const [Phone, setPhone] = useState("+220 2493268");
-  const [name, setName] = useState("Kebba Waiga");
+  const [firstName, setFirstName] = useState("Kebba ");
   const [accountType, setAccountType] = useState("");
   const bottomSheetModalRef = useRef(null);
+
+  const [lastName, setLastName] = useState("Waiga");
+  const [companyName, setCompanyName] = useState("");
+  const [webSite, setwebSite] = useState();
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef?.current?.present();
@@ -61,8 +65,25 @@ const ProfileInfo = ({ navigation }) => {
               backgroundColor: COLORS.lightGrey80,
             }}
             Placeholder={"Enter Your Full Name"}
-            value={name}
-            onChange={(text) => setName(text)}
+            value={firstName}
+            onChange={(text) => setFirstName(text)}
+            prependComponent={
+              <IconeBotten
+                iconeStyle={{ tintColor: COLORS.grey }}
+                icone={icons.person}
+              />
+            }
+            containerStyle={{
+              marginVertical: SIZES.base,
+            }}
+          />
+          <InputField
+            inputContainerStyle={{
+              backgroundColor: COLORS.lightGrey80,
+            }}
+            Placeholder={"Enter Your Name"}
+            value={lastName}
+            onChange={(text) => setLastName(text)}
             prependComponent={
               <IconeBotten
                 iconeStyle={{ tintColor: COLORS.grey }}
@@ -97,6 +118,8 @@ const ProfileInfo = ({ navigation }) => {
           />
 
           <InputField
+            value={webSite}
+            onChange={(text) => setwebSite(text)}
             inputContainerStyle={{
               backgroundColor: COLORS.lightGrey80,
             }}
@@ -113,6 +136,8 @@ const ProfileInfo = ({ navigation }) => {
             dropDownState={accounttype}
           />
           <InputField
+            value={companyName}
+            onChange={(text) => setCompanyName(text)}
             inputContainerStyle={{
               backgroundColor: COLORS.lightGrey80,
             }}

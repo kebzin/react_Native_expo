@@ -9,34 +9,56 @@ import {
   Animated,
 } from "react-native";
 import { COLORS, icons, SIZES, images } from "../constants/index";
-import { InputField } from "../components/index";
+import { IconeBotten, InputField } from "../components/index";
 import { useNavigation } from "@react-navigation/native";
 
-const CategoryAndInputCombine = ({ scrollY, Onpress }) => {
+const CategoryAndInputCombine = ({ scrollY, Onpress, filterPress }) => {
   // hooks
   const Navigation = useNavigation();
-  const categoryTranslateY = scrollY.interpolate({
-    inputRange: [0, 200], // Adjust the values based on when you want the category animation to start
-    outputRange: [0, -200], // Adjust the values based on the desired category translateY
-    extrapolate: "clamp",
-  });
+  // const categoryTranslateY = scrollY.interpolate({
+  //   inputRange: [0, 200], // Adjust the values based on when you want the category animation to start
+  //   outputRange: [0, -200], // Adjust the values based on the desired category translateY
+  //   extrapolate: "clamp",
+  // });
   return (
-    <SafeAreaView style={style.container}>
-      <Animated.View>
-        <InputField
-          onPress={() => {
-            Navigation.navigate("Search");
-          }}
-          Placeholder={"Search"}
-          prependComponent={
-            <Image source={icons.search} style={style.ImputField} />
-          }
-          appendComponent={
-            <Image source={icons.camera} style={style.ImputField} />
-          }
+    <View
+      style={{
+        backgroundColor: COLORS.lightGrey,
+        marginTop: 50,
+        paddingVertical: SIZES.base,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
+      <InputField
+        containerStyle={{ flex: 1 }}
+        onPress={() => {
+          Navigation.navigate("Search");
+        }}
+        Placeholder={"Search"}
+        prependComponent={
+          <Image source={icons.search} style={style.ImputField} />
+        }
+        appendComponent={
+          <Image source={icons.camera} style={style.ImputField} />
+        }
+      />
+
+      <TouchableOpacity
+        onPress={filterPress}
+        style={{
+          backgroundColor: COLORS.success,
+          padding: SIZES.base,
+          borderRadius: SIZES.radius,
+        }}
+      >
+        <Image
+          source={icons.filter}
+          style={{ width: 30, height: 30, tintColor: COLORS.light }}
         />
-      </Animated.View>
-    </SafeAreaView>
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -45,6 +67,9 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.lightGrey,
     marginTop: 50,
     paddingVertical: SIZES.base,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
   },
   thirdContainer: {
     flexDirection: "row",

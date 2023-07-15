@@ -99,10 +99,54 @@ const Suggestion = [
   },
 ];
 
-const scan_product_option = {
-  qr: "QR",
-  camera: "CAMERA",
-};
+const scan_product_option = [
+  {
+    id: 0,
+    title: "All Category",
+    image: require("../assets/icons/appartment.png"),
+  },
+  {
+    id: 1,
+    title: "Appartment",
+    image: require("../assets/icons/appartment.png"),
+  },
+  {
+    id: 2,
+    title: "Room's",
+    image: require("../assets/icons/room.png"),
+  },
+
+  {
+    id: 3,
+    title: "Shop's",
+
+    image: require("../assets/icons/shop.png"),
+  },
+  {
+    id: 4,
+    title: "Car's",
+
+    image: require("../assets/icons/car1.png"),
+  },
+  {
+    id: 5,
+    title: "Family",
+
+    image: require("../assets/icons/car1.png"),
+  },
+  {
+    id: 6,
+    title: "Batchelor",
+
+    image: require("../assets/icons/car1.png"),
+  },
+  {
+    id: 7,
+    title: "Office",
+
+    image: require("../assets/icons/car1.png"),
+  },
+];
 
 const Message = [
   {
