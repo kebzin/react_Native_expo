@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   FlatList,
@@ -7,34 +7,40 @@ import {
   Image,
   StatusBar,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
-  SafeAreaView,
 } from "react-native";
-import {
-  HeaderComponent,
-  CategoryAndInputCombine,
-  IconeBotten,
-  BottomSheetEmptyView,
-  TextButton,
-  CategorySectionHome,
-  InputField,
-} from "../../components/index";
-import {
-  SIZES,
-  icons,
-  COLORS,
-  constants,
-  FONTS,
-  dummyData,
-} from "../../constants/index";
+import { dummyData, SIZES, COLORS, icons } from "../../constants/index";
+import { IconeBotten } from "../../components";
 
 const PropertyDetails = ({ navigation, route }) => {
   const { item } = route.params;
 
+  const imageWidth = SIZES.width;
+  const [scrollX] = useState(new Animated.Value(0));
+
   useEffect(() => {
-    // call the property item api
-  });
+    // Call the property item API
+  }, []);
+
+  const Dot = ({ index }) => {
+    return (
+      <Animated.View
+        style={{
+          backgroundColor: COLORS.grey,
+          height: 8,
+          width: 8,
+          borderRadius: SIZES.radius,
+          marginHorizontal: 6,
+          opacity: Animated.divide(scrollX, imageWidth).interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0.3, 1, 0.3],
+            extrapolate: "clamp",
+          }),
+        }}
+      />
+    );
+  };
+
   return (
     <ScrollView contentContainerStyle={{ flex: 1 }}>
       <StatusBar
@@ -42,26 +48,104 @@ const PropertyDetails = ({ navigation, route }) => {
         backgroundColor={COLORS.lightGrey}
         animated={true}
       />
-      {/* back button and item  */}
       <View style={{ position: "relative" }}>
-        <Image
-          source={item.image}
+        {/* rendering the navigation */}
+        <View
           style={{
-            width: SIZES.width,
-            height: SIZES.height * 0.45,
-            borderEndWidth: 2,
-            borderColor: "red",
-            resizeMode: "stretch",
-
+            position: "absolute",
+            left: 10,
+            right: 10,
+            top: StatusBar.currentHeight - 20,
             zIndex: 100,
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
           }}
+        >
+          <View
+            style={{
+              backgroundColor: COLORS.lightGrey,
+              borderRadius: SIZES.base,
+              padding: 5,
+              alignItems: "center",
+            }}
+          >
+            <IconeBotten
+              icone={icons.arrow_left}
+              iconeStyle={{
+                tintColor: COLORS.dark,
+              }}
+              Onpress={() => navigation.goBack()}
+            />
+          </View>
+          <View
+            style={{
+              backgroundColor: COLORS.lightGrey,
+              borderRadius: SIZES.base,
+              padding: 5,
+              alignItems: "center",
+            }}
+          >
+            <IconeBotten
+              icone={icons.likeFll}
+              iconeStyle={{
+                tintColor: COLORS.error,
+              }}
+              // Onpress={ratingPress}
+            />
+          </View>
+        </View>
+
+        {/* rendering the flatlist  */}
+        <FlatList
+          data={dummyData.banners}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          snapToInterval={imageWidth} // This property is key for the snapping effect
+          decelerationRate="fast" // Adjust as needed
+          renderItem={({ item }) => (
+            <Image
+              source={item.image}
+              style={{
+                width: imageWidth,
+                height: SIZES.height * 0.45,
+                resizeMode: "stretch",
+
+                zIndex: 100,
+              }}
+            />
+          )}
         />
+        {/* rendering the dot component */}
+        <View
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            width: SIZES.width,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+          }}
+        >
+          {dummyData.banners.map((_, index) => (
+            <Dot key={index} index={index} />
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: COLORS.lightGrey,
@@ -71,4 +155,5 @@ const style = StyleSheet.create({
     resizeMode: "contain",
   },
 });
+
 export default PropertyDetails;

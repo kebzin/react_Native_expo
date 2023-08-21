@@ -47,6 +47,9 @@ const Home = ({ navigation }) => {
   const [data, setData] = useState([]); // Initial data array
   const [page, setPage] = useState(1); // Current page of data
   const [modalVisible, setModalVisible] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [openModal, setShowModal] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   // HOOK
   const dispatch = useDispatch();
@@ -164,7 +167,10 @@ const Home = ({ navigation }) => {
         messagePress={HandleMessageNavigation}
       />
       {/* input and category component */}
-      <CategoryAndInputCombine scrollY={scrollY} />
+      <CategoryAndInputCombine
+        scrollY={scrollY}
+        filterPress={() => setShowModal(true)}
+      />
       <FlatList
         data={dummyData.banners}
         keyExtractor={(item) => item.id}
@@ -192,6 +198,50 @@ const Home = ({ navigation }) => {
           }}
         />
       }
+
+      <BottomSheetEmptyView
+        height={300}
+        openModal={openModal}
+        setShowModal={setShowModal}
+        renderChildrents={
+          <View>
+            <Text
+              style={{
+                textAlign: "center",
+                ...FONTS.h3,
+                marginVertical: SIZES.base,
+              }}
+            >
+              Filters
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                ...FONTS.body4,
+                paddingHorizontal: SIZES.padding,
+                color: COLORS.grey80,
+              }}
+            ></Text>
+            <TextButton
+              label={"Delete Account"}
+              contentContainerStyle={{
+                margin: SIZES.padding,
+                borderRadius: SIZES.radius - 3,
+                height: 50,
+                backgroundColor: COLORS.error,
+              }}
+            />
+            <TextButton
+              onPress={() => setShowModal(false)}
+              label={"Cancel"}
+              contentContainerStyle={{
+                margin: SIZES.padding,
+                backgroundColor: null,
+              }}
+            />
+          </View>
+        }
+      />
     </View>
   );
 };
