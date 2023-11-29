@@ -7,21 +7,10 @@ import {
   Keyboard,
   TouchableOpacity,
 } from "react-native";
-import {
-  COLORS,
-  SIZES,
-  FONTS,
-  constants,
-  icons,
-  images,
-} from "../../constants/index";
+import { COLORS, SIZES, FONTS, icons, images } from "../../constants/index";
 import { Image } from "react-native";
 import { Register, Login, TextButton } from "../../components/index";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import { decryptData } from "../../components/EncriptionAndDescription";
-import { setCredentials } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AuthMain = ({ navigation, route }) => {
   const [mode, setmode] = useState(true);
@@ -55,7 +44,6 @@ const AuthMain = ({ navigation, route }) => {
           flex: 1,
           backgroundColor: COLORS.lightGrey,
           paddingHorizontal: SIZES.padding,
-
           paddingHorizontal: SIZES.padding,
         }}
       >

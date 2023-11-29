@@ -1,32 +1,16 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Animated,
   Image,
-  TouchableOpacity,
   ScrollView,
-  Platform,
   StatusBar,
 } from "react-native";
-import { useTheme } from "@react-navigation/native";
-import { COLORS, FONTS, SIZES, icons, images } from "../../constants/index";
-import {
-  HeaderComponent,
-  IconeBotten,
-  TextButton,
-} from "../../components/index";
-import { ColorSpace } from "react-native-reanimated";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCurrentToken,
-  selectIsLogin,
-} from "../../features/auth/authSlice";
+import { COLORS, FONTS, SIZES, icons } from "../../constants/index";
+import { IconeBotten } from "../../components/index";
 
 const ProfileInfo = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const LoginUser = useSelector(selectCurrentToken);
   return (
     <View style={style.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />

@@ -15,7 +15,6 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       const { data } = action.payload;
       state.data = data; // Update the token in the state
-      console.log("dd", data);
     },
     // logOut: Action for logging out the user
     logOut: (state, action) => {

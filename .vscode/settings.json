@@ -4,5 +4,6 @@
   "editor.wordWrap": "on",
   "editor.autoClosingBrackets": "always",
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-  "editor.columnSelection": false
+  "editor.columnSelection": false,
+  "editor.inlineSuggest.showToolbar": "onHover"
 }

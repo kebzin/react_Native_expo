@@ -12,7 +12,7 @@ import { COLORS, icons, SIZES, images } from "../constants/index";
 import { IconeBotten, InputField } from "../components/index";
 import { useNavigation } from "@react-navigation/native";
 
-const CategoryAndInputCombine = ({ scrollY, Onpress, filterPress }) => {
+const CategoryAndInputCombine = ({ scrollY, Onpress, filterPress}) => {
   // hooks
   const Navigation = useNavigation();
   // const categoryTranslateY = scrollY.interpolate({
